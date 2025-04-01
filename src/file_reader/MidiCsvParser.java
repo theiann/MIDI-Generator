@@ -29,9 +29,9 @@ public class MidiCsvParser {
 				
 				startEndTick = Integer.parseInt(columns[0]);
 				if(columns[1].equals(" Note_on_c")) {
-					noteOnOff = 1;
+					noteOnOff = 144;
 				}else {
-					noteOnOff = 0;
+					noteOnOff = 128;
 				}
 				channel = Integer.parseInt(columns[2]);
 				note = Integer.parseInt(columns[3]);

@@ -18,7 +18,44 @@ public class Main {
 			Sequence sequence = new Sequence(Sequence.PPQ, 384);
 			Track track = sequence.createTrack();
 			
-			MidiEventFactoryAbstract factoryAbstract = new standardMidiEventFactoryAbstract();
+			MidiEventFactoryAbstract factoryAbstract = new StandardMidiEventFactoryAbstract();
+			//MidiEventFactoryAbstract factoryAbstract = new LegatoMidiEventFactoryAbstract();
+			//MidiEventFactoryAbstract factoryAbstract = new StaccatoMidiEventFactoryAbstract();
+			MidiEventFactory factory = factoryAbstract.createFactory();
+			
+			
+			// Choose an instrument strategy
+			
+			
+			// Choose a pitch strategy
+			
+			
+			for(MidiEventData event : midiEvents) {
+				if(event.getNoteOnOff() == ShortMessage.NOTE_ON) {
+					// Change the event.getNote() to modifiedNote once strategies are implemented!
+					track.add(factory.createNoteOn(event.getStartEndTick(), 
+							event.getNote(), event.getVelocity(), event.getChannel()));
+					
+					System.out.println("Created Note On");
+					
+				} else {
+					// Change the event.getNote() to modifiedNote once strategies are implemented!
+					track.add(factory.createNoteOff(event.getStartEndTick(), 
+							event.getNote(), event.getChannel()));
+					
+					System.out.println("Created Note Off");
+					
+				}
+			}
+			
+			// Playing the sequence
+			Sequencer sequencer = MidiSystem.getSequencer();
+			sequencer.open();
+			sequencer.setSequence(sequence);
+			sequencer.start();
+			
+			
+			
 			
 		} catch(Exception e) {
 			e.printStackTrace();

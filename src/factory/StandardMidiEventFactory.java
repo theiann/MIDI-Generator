@@ -10,15 +10,17 @@ public class StandardMidiEventFactory implements MidiEventFactory {
 	@Override
 	public MidiEvent createNoteOn(int tick, int note, int velocity, int channel) throws InvalidMidiDataException {
 		ShortMessage msg = new ShortMessage();
-		msg.setMessage(143+channel, note, velocity);
+		msg.setMessage(144+channel, note, velocity);
 		MidiEvent event = new MidiEvent(msg, tick);
 		return event;
 	}
 
 	@Override
 	public MidiEvent createNoteOff(int tick, int note, int channel) throws InvalidMidiDataException {
-		// TODO Auto-generated method stub
-		return null;
+		ShortMessage msg = new ShortMessage();
+		msg.setMessage(128+channel, note, 0);
+		MidiEvent event = new MidiEvent(msg, tick);
+		return event;
 	}
 
 }
