@@ -1,5 +1,51 @@
 package file_reader;
 
-public class MidiCsvParser {
+import java.util.ArrayList;
+import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
+public class MidiCsvParser {
+	
+	
+	
+	public static List<MidiEventData> parseCsv(String fileString) throws FileNotFoundException{
+		List<MidiEventData> list = new ArrayList<MidiEventData>();
+		
+		File file = new File(fileString);
+		
+		try (Scanner input = new Scanner(file)) {
+			while(input.hasNextLine()) {
+				String columns[] = input.nextLine().split(",");
+				
+				int startEndTick;
+				int noteOnOff;
+				int channel;
+				int note;
+				int velocity;
+				int instrument;
+				
+				startEndTick = Integer.parseInt(columns[0]);
+				if(columns[1].equals(" Note_on_c")) {
+					noteOnOff = 1;
+				}else {
+					noteOnOff = 0;
+				}
+				channel = Integer.parseInt(columns[2]);
+				note = Integer.parseInt(columns[3]);
+				velocity = Integer.parseInt(columns[4]);
+				instrument = Integer.parseInt(columns[5]);
+				
+				
+				
+				//System.out.println(startEndTick + ", " + noteOnOff + ", " + channel + ", " + note + ", " +  velocity + ", " + instrument);
+				MidiEventData event = new MidiEventData(startEndTick, noteOnOff, channel, note, velocity, instrument);
+				list.add(event); 
+			}
+		}
+		
+		return list;
+	}
 }
