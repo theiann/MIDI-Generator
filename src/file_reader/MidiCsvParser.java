@@ -5,7 +5,6 @@ import java.util.List;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 
 public class MidiCsvParser {
@@ -20,7 +19,9 @@ public class MidiCsvParser {
 		try (Scanner input = new Scanner(file)) {
 			while(input.hasNextLine()) {
 				String columns[] = input.nextLine().split(",");
-				
+				if(columns.length != 6) {
+					throw new FileNotFoundException("File is invalid");
+				}
 				int startEndTick;
 				int noteOnOff;
 				int channel;
@@ -44,7 +45,11 @@ public class MidiCsvParser {
 				//System.out.println(startEndTick + ", " + noteOnOff + ", " + channel + ", " + note + ", " +  velocity + ", " + instrument);
 				MidiEventData event = new MidiEventData(startEndTick, noteOnOff, channel, note, velocity, instrument);
 				list.add(event); 
+			
 			}
+			input.close();
+		} catch (Exception E) {
+			E.printStackTrace();
 		}
 		
 		return list;
