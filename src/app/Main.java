@@ -31,6 +31,7 @@ public class Main {
 			
 			
 			for(MidiEventData event : midiEvents) {
+				
 				if(event.getNoteOnOff() == ShortMessage.NOTE_ON) {
 					// Change the event.getNote() to modifiedNote once strategies are implemented!
 					track.add(factory.createNoteOn(event.getStartEndTick(), 
@@ -54,7 +55,11 @@ public class Main {
 			sequencer.setSequence(sequence);
 			sequencer.start();
 			
-			
+			while (sequencer.isRunning() | sequencer.isOpen()) {
+				Thread.sleep(100);
+			}
+			Thread.sleep(500);
+			sequencer.close();
 			
 			
 		} catch(Exception e) {
