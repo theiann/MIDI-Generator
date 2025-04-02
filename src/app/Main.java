@@ -5,6 +5,8 @@ import java.util.List;
 import javax.sound.midi.*;
 import file_reader.*;
 import factory.*;
+import instrument.*;
+import pitch.*;
 
 
 public class Main {
@@ -25,9 +27,21 @@ public class Main {
 			
 			
 			// Choose an instrument strategy
+			 InstrumentStrategy pianoStrategy = new AcousticGrandPianoStrategy();
+			 InstrumentStrategy GuitarStrategy = new ElectricBassGuitarStrategy();
+			 InstrumentStrategy trumpetStrategy = new TrumpetStrategy();
+			 
 			
+			 pianoStrategy.applyInstrument(track, 1);   
+			 GuitarStrategy.applyInstrument(track, 2);     
+			 trumpetStrategy.applyInstrument(track, 3); 
 			
 			// Choose a pitch strategy
+			//PitchStrategy pitchStrategy = new HigherPitchStrategy();
+			/*
+			 * PitchStrategy pitchStrategy = new LowerPitchStrategy();
+			 */
+			
 			
 			
 			for(MidiEventData event : midiEvents) {
