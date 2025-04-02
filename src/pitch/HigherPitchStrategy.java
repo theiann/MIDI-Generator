@@ -8,7 +8,10 @@ public class HigherPitchStrategy implements PitchStrategy {
 	 */
 	@Override
 	public int modifyPitch(int note) {
-		return Math.max(note+2,127); 
+		if(note>=126) {
+			note=127;
+			return note;
+		}
+		return note+2;
 	}
-
 }

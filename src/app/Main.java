@@ -34,13 +34,31 @@ public class Main {
 			
 			 pianoStrategy.applyInstrument(track, 1);   
 			 GuitarStrategy.applyInstrument(track, 2);     
-			 trumpetStrategy.applyInstrument(track, 3); 
+			 trumpetStrategy.applyInstrument(track, 0); 
 			
 			// Choose a pitch strategy
-			//PitchStrategy pitchStrategy = new HigherPitchStrategy();
-			/*
-			 * PitchStrategy pitchStrategy = new LowerPitchStrategy();
-			 */
+			PitchStrategy pitchStrategy = new LowerPitchStrategy();
+			
+			
+			for(MidiEventData event : midiEvents) {
+				int modifiedNote = pitchStrategy.modifyPitch(event.getNote());
+				
+				modifiedNote = pitchStrategy.modifyPitch(modifiedNote);
+
+				
+				
+				
+				if(event.getNoteOnOff() == ShortMessage.NOTE_ON) {
+					track.add(factory.createNoteOn(event.getStartEndTick(),
+							modifiedNote ,
+							event.getVelocity(),
+							event.getChannel()));
+				}
+				else {
+					track.add(factory.createNoteOff(event.getStartEndTick(), modifiedNote, event.getChannel()));  
+				}
+			}
+			
 			
 			
 			
