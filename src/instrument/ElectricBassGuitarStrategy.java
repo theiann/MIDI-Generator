@@ -4,8 +4,9 @@ import javax.sound.midi.*;
 
 public class ElectricBassGuitarStrategy implements InstrumentStrategy {
 	/*
-	 * This class applies the Electric bass guitar Instrument to the channel
-	 * It does so with the MIDI program 33
+	 * This class applies the Electric bass guitar Instrument to 
+	 * the passed channel number
+	 * It does so with the MIDI PROGRAM_CHANGE by getting the program value to 33
 	 */
 		@Override
 		public void applyInstrument(Track track, int channel) {

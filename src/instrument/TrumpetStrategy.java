@@ -3,9 +3,11 @@ package instrument;
 import javax.sound.midi.*;
 
 public class TrumpetStrategy implements InstrumentStrategy {/*
-	 * This class applies the Trumpet Instrument to the channel
-	 * It does so with the MIDI program 56
-	 */
+	 /*
+ * This class applies the Trumpet Instrument to 
+ * the passed channel number
+ * It does so with the MIDI PROGRAM_CHANGE by getting the program value to 56
+ */
 		@Override
 		public void applyInstrument(Track track, int channel) {
 			try {

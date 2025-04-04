@@ -37,7 +37,7 @@ public class Main {
 			// Choose a pitch strategy
 			PitchStrategy pitchStrategy = new LowerPitchStrategy();
 			
-			
+			//got this pitch change code from the given assignment instruction file
 			for(MidiEventData event : midiEvents) {
 				int modifiedNote = pitchStrategy.modifyPitch(event.getNote());
 				
