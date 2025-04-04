@@ -13,7 +13,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			List<MidiEventData> midiEvents = MidiCsvParser.parseCsv("./src/files/test_file.csv");
+			List<MidiEventData> midiEvents = MidiCsvParser.parseCsv("./src/files/mystery_song.csv");
 			
 			
 			
@@ -26,15 +26,13 @@ public class Main {
 			MidiEventFactory factory = factoryAbstract.createFactory();
 			
 			
-			// Choose an instrument strategy
-			 InstrumentStrategy pianoStrategy = new AcousticGrandPianoStrategy();
-			 InstrumentStrategy GuitarStrategy = new ElectricBassGuitarStrategy();
-			 InstrumentStrategy trumpetStrategy = new TrumpetStrategy();
-			 
+			//Choose an instrument strategy
+			InstrumentStrategy instrumentStrategy = new ElectricBassGuitarStrategy();
+			instrumentStrategy.applyInstrument(track, 0);
+			instrumentStrategy = new TrumpetStrategy();
+			instrumentStrategy.applyInstrument(track, 1);
 			
-			 pianoStrategy.applyInstrument(track, 1);   
-			 GuitarStrategy.applyInstrument(track, 2);     
-			 trumpetStrategy.applyInstrument(track, 0); 
+
 			
 			// Choose a pitch strategy
 			PitchStrategy pitchStrategy = new LowerPitchStrategy();
@@ -61,25 +59,7 @@ public class Main {
 			
 			
 			
-			
-			for(MidiEventData event : midiEvents) {
-				
-				if(event.getNoteOnOff() == ShortMessage.NOTE_ON) {
-					// Change the event.getNote() to modifiedNote once strategies are implemented!
-					track.add(factory.createNoteOn(event.getStartEndTick(), 
-							event.getNote(), event.getVelocity(), event.getChannel()));
-					
-					System.out.println("Created Note On");
-					
-				} else {
-					// Change the event.getNote() to modifiedNote once strategies are implemented!
-					track.add(factory.createNoteOff(event.getStartEndTick(), 
-							event.getNote(), event.getChannel()));
-					
-					System.out.println("Created Note Off");
-					
-				}
-			}
+		
 			
 			// Playing the sequence
 			Sequencer sequencer = MidiSystem.getSequencer();

@@ -10,7 +10,15 @@ import java.util.Scanner;
 public class MidiCsvParser {
 	
 	
-	
+	/**
+	 * This method will parse a provided csv file to convert it into a list of MidiEventData objects.
+	 * @param fileString
+	 * 			string to the file path of the csv file.
+	 * @return
+	 * 			Returns the new ArrayList of created MidiEventData objects.
+	 * @throws
+	 * 			FileNotFoundException if file cannot be found or if the file is not a valid csv file.
+	 */  		
 	public static List<MidiEventData> parseCsv(String fileString) throws FileNotFoundException{
 		List<MidiEventData> list = new ArrayList<MidiEventData>();
 		
